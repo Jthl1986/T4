@@ -479,13 +479,13 @@ def app5():
         st.dataframe(dfp.style.format({"Superficie (has)":"{:.0f}", "Rinde":"{:,}", "Ingreso":"${:,}", "Costos directos":"${:,}", "Gastos comercialización":"${:,}", "Margen bruto":"${:,}"})) 
         
         # Agrupar el dataframe por tipo de cultivo y sumar la superficie
-        df_grouped = dfp.groupby('Tipo de cultivo').sum()[['Superficie (has)']].reset_index()
+        df_grouped = dfp.groupby('Cultivo').sum()[['Superficie (has)']].reset_index()
 
         # Definir los colores para cada tipo de cultivo
         colors = px.colors.qualitative.Plotly
         
         # Crear el gráfico de barras
-        fig = px.bar(df_grouped, x='Tipo de cultivo', y='Superficie (has)', color='Tipo de cultivo', color_discrete_sequence=colors)
+        fig = px.bar(df_grouped, x='Cultivo', y='Superficie (has)', color='Tipo de cultivo', color_discrete_sequence=colors)
         
         # Mostrar el gráfico en Streamlit
         middle.plotly_chart(fig)
