@@ -478,12 +478,18 @@ def app5():
         st.write('\n\n')
         st.dataframe(dfp.style.format({"Superficie (has)":"{:.0f}", "Rinde":"{:,}", "Ingreso":"${:,}", "Costos directos":"${:,}", "Gastos comercialización":"${:,}", "Margen bruto":"${:,}"})) 
         
-        # Agrupar datos por tipo de cultivo y sumar las hectáreas correspondientes
-        chart = st.session_state.dfp.groupby('Cultivo')['Superficie (has)'].sum()
+        # Agrupar el dataframe por tipo de cultivo y sumar la superficie
+        df_grouped = dfp.groupby('Tipo de cultivo').sum()[['Superficie (has)']].reset_index()
+
+        # Definir los colores para cada tipo de cultivo
+        colors = px.colors.qualitative.Plotly
         
-        # Crear gráfico de barras con los datos obtenidos
-        middle.bar_chart(chart)
+        # Crear el gráfico de barras
+        fig = px.bar(df_grouped, x='Tipo de cultivo', y='Superficie (has)', color='Tipo de cultivo', color_discrete_sequence=colors)
         
+        # Mostrar el gráfico en Streamlit
+        middle.plotly_chart(fig)
+                
     if dfp is not None and df1 is None:
         st.write ("Sin planteo productivo o falta cargar gastos de estructura")
         
