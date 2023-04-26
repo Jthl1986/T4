@@ -430,9 +430,8 @@ def app4():
 
 def app5():
     st.header("Cuadro resumen")
-    left, right = st.columns(2)
     css()
-   
+    
     # Obtener los dataframes existentes o None si no existen
     dfp = getattr(st.session_state, 'dfp', None)
     dfs = getattr(st.session_state, 'dfs', None)
@@ -440,19 +439,20 @@ def app5():
     dfa = getattr(st.session_state, 'dfa', None)
     df1 = getattr(st.session_state, 'df1', None)
     
-   
     if dfp is not None:
         st.subheader("Planteo productivo")
         ingtotal = st.session_state.dfp['Ingreso'].sum()
         costtotal = st.session_state.dfp['Costos directos'].sum()
         gctotal = st.session_state.dfp['Gastos comercialización'].sum()
         mbtotal = st.session_state.dfp['Margen bruto'].sum()
-    if df1 is not None:
-        left, middle, right = st.columns(3)
-        arrend = st.session_state.df1[0]
-        gas = st.session_state.df1[1]
-        result = int(mbtotal)-int(arrend)-int(gas)
+    
         # Crear una lista de diccionarios con los datos
+        data = [
+            {'Concepto': 'Facturación campaña', 'Total': '${:,}'.format(round(ingtotal))},
+            {'Concepto': 'Costos directos', 'Total': '${:,}'.format(round(costtotal))},
+            {'Concepto': 'Gastos comercialización', 'Total': '${:,}'.format(round(gctotal))},
+            {'Concepto': 'Margen bruto total', 'Total': '${:,}'.format(round(mbtotal))}
+        ]
         
         # Define el estilo CSS
         csss = """
@@ -460,44 +460,30 @@ def app5():
             .custom-table tbody tr:last-child td {
                 font-weight: bold;
             }
+        </style>
         """
-        
-        data = [
-            {'Concepto': 'Facturación campaña', 'Total': '${:,}'.format(round(ingtotal))},
-            {'Concepto': 'Costos directos', 'Total': '${:,}'.format(round(costtotal))},
-            {'Concepto': 'Gastos comercialización', 'Total': '${:,}'.format(round(gctotal))},
-            {'Concepto': 'Margen bruto total', 'Total': '${:,}'.format(round(mbtotal))},
-            {'Concepto': 'Arrendamiento', 'Total': '${:,}'.format(arrend)},
-            {'Concepto': 'Gastos estructura', 'Total': '${:,}'.format(gas)},
-            {'Concepto': 'Generación operativa de fondos', 'Total': '${:,}'.format(result)}
-        ]
-        
-        # Apply CSS styles to the table
-        st.markdown(csss, unsafe_allow_html=True)
-        
-        # Crear un container de dos columnas
+    
+        # Crear un contenedor de tres columnas
         left, middle, right = st.beta_columns(3)
-        
-        # Agregar la tabla al contenedor de la izquierda
-        left.markdown('<table class="custom-table">{}</table>'.format(pd.DataFrame(data).to_html(index=False, classes="custom-table", header=False)), unsafe_allow_html=True)
-        
-        # Agregar un espacio en blanco debajo de la tabla
-        left.write('\n\n')
-        
+    
         # Agregar el dataframe al contenedor de la izquierda
-        left.dataframe(dfp.style.format({"Superficie (has)":"{:.0f}", "Rinde":"{:,}", "Ingreso":"${:,}", "Costos directos":"${:,}", "Gastos comercialización":"${:,}", "Margen bruto":"${:,}"}))
-        
+        left.dataframe(dfp.style.format({"Superficie (has)": "{:.0f}", "Rinde": "{:,}", "Ingreso": "${:,}", "Costos directos": "${:,}", "Gastos comercialización": "${:,}", "Margen bruto": "${:,}"}))
+    
         # Agrupar el dataframe por tipo de cultivo y sumar la superficie
         df_grouped = dfp.groupby('Cultivo')['Superficie (has)'].sum().reset_index()
-        
+    
         # Definir los colores para cada tipo de cultivo
         colors = px.colors.qualitative.Plotly
-        
-        # Crear el gráfico de barras
-        fig = px.bar(df_grouped, x='Cultivo', y='Superficie (has)', color='Cultivo', color_discrete_sequence=colors)
-        
-        # Agregar el gráfico al contenedor de la derecha
-        middle.plotly_chart(fig, use_container_width=True)
+    
+        # Crear el gráfico de barras y agregarlo al contenedor del medio
+        with middle:
+            fig = px.bar(df_grouped, x='Cultivo', y='Superficie (has)', color='Cultivo', color_discrete_sequence=colors)
+            st.plotly_chart(fig, use_container_width=False, width=500)
+    
+        # Agregar la tabla al contenedor de la derecha
+        right.markdown(csss, unsafe_allow_html=True)
+        right.markdown('<table class="custom-table">{}</table>'.format(pd.DataFrame(data).to_html(index=False, classes="custom-table", header=False)), unsafe_allow_html=True)
+
 
                 
     if dfp is not None and df1 is None:
