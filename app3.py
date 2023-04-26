@@ -513,8 +513,8 @@ def app5():
        
     if dfx is not None:
         left, right = st.columns(2)
-        right.subheader("Ingresos Servicios agrícolas")
-        right.table(dfx.style.format({"Superficie(ha)":"{:.0f}", "Precio":"${:,}", "Ingreso estimado":"${:,}"}))
+        left.subheader("Ingresos Servicios agrícolas")
+        left.table(dfx.style.format({"Superficie(ha)":"{:.0f}", "Precio":"${:,}", "Ingreso estimado":"${:,}"}))
    
     if dfa is not None:
         left, right = st.columns(2) 
