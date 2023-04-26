@@ -497,9 +497,11 @@ def app5():
         
         # Agregar el gráfico al contenedor de la derecha
         middle.plotly_chart(fig, use_container_width=True)
-        # Agregar el gráfico al contenedor de la derecha con un margen superior
-        middle.markdown('<div style="margin-top: 50px;">{}</div>'.format(fig.to_html(include_plotlyjs='cdn')), unsafe_allow_html=True)
-
+        fig.update_layout(
+            margin=dict(
+                t=50 # Cambie este valor para ajustar el margen superior
+                )
+            )
                 
     if dfp is not None and df1 is None:
         st.write ("Sin planteo productivo o falta cargar gastos de estructura")
