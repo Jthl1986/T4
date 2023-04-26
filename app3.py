@@ -496,7 +496,9 @@ def app5():
         fig = px.bar(df_grouped, x='Cultivo', y='Superficie (has)', color='Cultivo', color_discrete_sequence=colors)
         
         # Agregar el gráfico al contenedor de la derecha
-        middle.plotly_chart(fig, use_container_width=500)
+        middle.plotly_chart(fig, use_container_width=True)
+        # Agregar el gráfico al contenedor de la derecha con un margen superior
+        middle.markdown('<div style="margin-top: 50px;">{}</div>'.format(fig.to_html(include_plotlyjs='cdn')), unsafe_allow_html=True)
 
                 
     if dfp is not None and df1 is None:
