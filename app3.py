@@ -476,7 +476,7 @@ def app5():
         st.markdown(csss, unsafe_allow_html=True)
         
         # Crear un container de dos columnas
-        left, right = st.beta_columns(2)
+        left, middle, right = st.beta_columns(3)
         
         # Agregar la tabla al contenedor de la izquierda
         left.markdown('<table class="custom-table">{}</table>'.format(pd.DataFrame(data).to_html(index=False, classes="custom-table", header=False)), unsafe_allow_html=True)
@@ -497,7 +497,7 @@ def app5():
         fig = px.bar(df_grouped, x='Cultivo', y='Superficie (has)', color='Cultivo', color_discrete_sequence=colors)
         
         # Agregar el gráfico al contenedor de la derecha
-        right.plotly_chart(fig, use_container_width=True)
+        middle.plotly_chart(fig, use_container_width=True)
 
                 
     if dfp is not None and df1 is None:
