@@ -499,7 +499,7 @@ def app5():
         middle.plotly_chart(fig, use_container_width=True)
         fig.update_layout(
             margin=dict(
-                t=50 # Cambie este valor para ajustar el margen superior
+                t=100 # Cambie este valor para ajustar el margen superior
                 )
             )
                 
