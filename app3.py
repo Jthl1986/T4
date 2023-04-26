@@ -482,7 +482,6 @@ def app5():
         left.markdown('<table class="custom-table">{}</table>'.format(pd.DataFrame(data).to_html(index=False, classes="custom-table", header=False)), unsafe_allow_html=True)
         
         # Agregar un espacio en blanco debajo de la tabla
-        left.write('\n\n')
         
         # Agregar el dataframe al contenedor de la izquierda
         st.dataframe(dfp.style.format({"Superficie (has)":"{:.0f}", "Rinde":"{:,}", "Ingreso":"${:,}", "Costos directos":"${:,}", "Gastos comercialización":"${:,}", "Margen bruto":"${:,}"}))
