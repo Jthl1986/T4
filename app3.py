@@ -496,7 +496,7 @@ def app5():
         fig = px.bar(df_grouped, x='Cultivo', y='Superficie (has)', color='Cultivo', color_discrete_sequence=colors)
         
         # Agregar el gráfico al contenedor de la derecha
-        middle.plotly_chart(fig, use_container_width=True)
+        left.plotly_chart(fig, use_container_width=True)
         fig.update_layout(
             margin=dict(
                 t=100 # Cambie este valor para ajustar el margen superior
