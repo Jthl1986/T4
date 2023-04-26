@@ -461,7 +461,7 @@ def app5():
                 font-weight: bold;
             }
         """
-
+        
         data = [
             {'Concepto': 'Facturación campaña', 'Total': '${:,}'.format(round(ingtotal))},
             {'Concepto': 'Costos directos', 'Total': '${:,}'.format(round(costtotal))},
@@ -470,13 +470,22 @@ def app5():
             {'Concepto': 'Arrendamiento', 'Total': '${:,}'.format(arrend)},
             {'Concepto': 'Gastos estructura', 'Total': '${:,}'.format(gas)},
             {'Concepto': 'Generación operativa de fondos', 'Total': '${:,}'.format(result)}
-            ]
+        ]
+        
         # Apply CSS styles to the table
-        left.markdown(csss, unsafe_allow_html=True)
+        st.markdown(csss, unsafe_allow_html=True)
+        
+        # Crear un container de dos columnas
+        left, right = st.beta_columns(2)
+        
+        # Agregar la tabla al contenedor de la izquierda
         left.markdown('<table class="custom-table">{}</table>'.format(pd.DataFrame(data).to_html(index=False, classes="custom-table", header=False)), unsafe_allow_html=True)
-        st.write('\n\n')
-        st.write('\n\n')
-        st.dataframe(dfp.style.format({"Superficie (has)":"{:.0f}", "Rinde":"{:,}", "Ingreso":"${:,}", "Costos directos":"${:,}", "Gastos comercialización":"${:,}", "Margen bruto":"${:,}"})) 
+        
+        # Agregar un espacio en blanco debajo de la tabla
+        left.write('\n\n')
+        
+        # Agregar el dataframe al contenedor de la izquierda
+        left.dataframe(dfp.style.format({"Superficie (has)":"{:.0f}", "Rinde":"{:,}", "Ingreso":"${:,}", "Costos directos":"${:,}", "Gastos comercialización":"${:,}", "Margen bruto":"${:,}"}))
         
         # Agrupar el dataframe por tipo de cultivo y sumar la superficie
         df_grouped = dfp.groupby('Cultivo')['Superficie (has)'].sum().reset_index()
@@ -487,8 +496,9 @@ def app5():
         # Crear el gráfico de barras
         fig = px.bar(df_grouped, x='Cultivo', y='Superficie (has)', color='Cultivo', color_discrete_sequence=colors)
         
-        # Mostrar el gráfico en Streamlit
-        middle.plotly_chart(fig)
+        # Agregar el gráfico al contenedor de la derecha
+        right.plotly_chart(fig, use_container_width=True)
+
                 
     if dfp is not None and df1 is None:
         st.write ("Sin planteo productivo o falta cargar gastos de estructura")
