@@ -478,7 +478,7 @@ def app5():
         # Crear el gráfico de barras y agregarlo al contenedor del medio
         with middle:
             fig = px.bar(df_grouped, x='Cultivo', y='Superficie (has)', color='Cultivo', color_discrete_sequence=colors)
-            st.plotly_chart(fig, use_container_width=False, width=500)
+            st.plotly_chart(fig, use_container_width=True)
     
         # Agregar la tabla al contenedor de la derecha
         right.markdown(csss, unsafe_allow_html=True)
