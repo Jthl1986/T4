@@ -494,6 +494,12 @@ def app5():
         ax.pie(porcentajes, labels=porcentajes.index, autopct='%1.0f%%')
         middle.pyplot(fig1)
         
+        # Cambiar la tipografía, tamaño y color de las referencias
+        for label in ax.get_xticklabels() + ax.get_yticklabels():
+            label.set_fontsize(9)
+            label.set_color('grey')
+            label.set_family('serif')
+        
         # Tabla dataframe entero
         st.dataframe(dfp.style.format({"Superficie (has)":"{:.0f}", "Rinde":"{:,}", "Ingreso":"${:,}", "Costos directos":"${:,}", "Gastos comercialización":"${:,}", "Margen bruto":"${:,}"}))
         
