@@ -506,8 +506,6 @@ def app5():
             text.set_family('serif')
             color.set_edgecolor('none')
             color.set_linewidth(0)
-            color.set_height(10)
-            color.set_width(10)
         # Mostrar el gráfico en Streamlit
         middle.pyplot(fig1)
         
