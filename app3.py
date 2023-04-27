@@ -480,7 +480,7 @@ def app5():
         left.markdown('<table class="custom-table">{}</table>'.format(pd.DataFrame(data).to_html(index=False, classes="custom-table", header=False)), unsafe_allow_html=True)
                 
         # Barras en tres columnas izquierda
-        left, middle, right = st.beta_columns(3)
+        left, middle1, middle2, right = st.beta_columns(4)
         df_grouped = dfp.groupby('Cultivo')['Superficie (has)'].sum().reset_index()
         colors = px.colors.qualitative.Plotly
         fig = px.bar(df_grouped, x='Cultivo', y='Superficie (has)', color='Cultivo', color_discrete_sequence=colors)
@@ -489,14 +489,13 @@ def app5():
         #GRAFICO TORTA
         # Agrupar por tipo de campo y sumar la superficie
         df_agrupado = dfp.groupby('Campos')['Superficie (has)'].sum()
-        porcentajes = df_agrupado / df_agrupado.sum() * 100
         
         # Crear el gráfico de torta con Plotly
         fig1 = px.pie(names=df_agrupado.index, values=df_agrupado.values, 
                      labels={'names':'Tipo de campo', 'values':'Superficie (has)'})
         
         # Mostrar el gráfico en la aplicación con Streamlit
-        middle.plotly_chart(fig1)
+        middle1.plotly_chart(fig1)
         
         # Tabla dataframe entero
         st.dataframe(dfp.style.format({"Superficie (has)":"{:.0f}", "Rinde":"{:,}", "Ingreso":"${:,}", "Costos directos":"${:,}", "Gastos comercialización":"${:,}", "Margen bruto":"${:,}"}))
