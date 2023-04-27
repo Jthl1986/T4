@@ -490,6 +490,8 @@ def app5():
         # Agrupar por tipo de campo y sumar la superficie
         df_agrupado = dfp.groupby('Campos')['Superficie (has)'].sum()
         porcentajes = df_agrupado / df_agrupado.sum() * 100
+        
+        # Crear el gráfico de torta
         fig1, ax = plt.subplots(figsize=(9, 3))
         ax.pie(porcentajes, labels=porcentajes.index, autopct='%1.0f%%')
         
@@ -498,6 +500,8 @@ def app5():
             label.set_fontsize(6)
             label.set_color('grey')
             label.set_family('serif')
+        
+        # Mostrar el gráfico en Streamlit
         middle.pyplot(fig1)
         
         # Tabla dataframe entero
