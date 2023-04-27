@@ -493,7 +493,7 @@ def app5():
         
         # Crear el gráfico de torta
         fig1, ax = plt.subplots(figsize=(9, 3))
-        ax.pie(porcentajes, labels=porcentajes.index, autopct='%1.0f%%')
+        ax.pie(porcentajes, autopct='%1.0f%%')
         
         # Crear una leyenda de colores y referencias
         legend = ax.legend(loc='upper right', frameon=False, bbox_to_anchor=(1.3, 1))
