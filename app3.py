@@ -491,23 +491,11 @@ def app5():
         df_agrupado = dfp.groupby('Campos')['Superficie (has)'].sum()
         porcentajes = df_agrupado / df_agrupado.sum() * 100
         
-        # Crear el gráfico de torta
-        fig1, ax = plt.subplots(figsize=(9, 3))
-        ax.pie(porcentajes, labels=porcentajes.index, autopct='%1.0f%%')
-        
-        # Crear una leyenda de colores y referencias
-        legend = ax.legend(loc='upper right', frameon=False, bbox_to_anchor=(1.3, 1))
-        legend.set_title('Tipos de campo')
-        for text, color in zip(legend.get_texts(), ax.patches):
-            text.set_color(color.get_facecolor())
-            text.set_ha('left')
-            text.set_va('center')
-            text.set_fontsize(10)
-            text.set_family('serif')
-            color.set_edgecolor('none')
-            color.set_linewidth(0)
-        # Mostrar el gráfico en Streamlit
-        middle.pyplot(fig1)
+        # Crear el gráfico de torta con Plotly
+        fig1 = px.pie(names=df_agrupado.index, values=df_agrupado.values, 
+                     title='Distribución de la superficie por tipo de campo',
+                     labels={'names':'Tipo de campo', 'values':'Superficie (has)'})
+        middle.fig.show(fig1)
         
         # Tabla dataframe entero
         st.dataframe(dfp.style.format({"Superficie (has)":"{:.0f}", "Rinde":"{:,}", "Ingreso":"${:,}", "Costos directos":"${:,}", "Gastos comercialización":"${:,}", "Margen bruto":"${:,}"}))
