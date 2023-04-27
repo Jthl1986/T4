@@ -493,7 +493,7 @@ def app5():
         fig1, ax = plt.subplots(figsize=(8, 6))
         ax.pie(porcentajes, labels=porcentajes.index, autopct='%1.1f%%')
         ax.set_title('Distribución de la superficie por tipo de campo')
-        st.pyplot(fig1)
+        middle.pyplot(fig1)
         
         # Tabla dataframe entero
         st.dataframe(dfp.style.format({"Superficie (has)":"{:.0f}", "Rinde":"{:,}", "Ingreso":"${:,}", "Costos directos":"${:,}", "Gastos comercialización":"${:,}", "Margen bruto":"${:,}"}))
