@@ -491,6 +491,8 @@ def app5():
         # Crear el gráfico de barras
         fig = px.bar(df_grouped, x='Cultivo', y='Superficie (has)', color='Cultivo', color_discrete_sequence=colors)
         
+        # Crear un container de dos columnas
+        left, middle, right = st.beta_columns(3)
         # Agregar el gráfico al contenedor de la derecha
         left.plotly_chart(fig, use_container_width=True)
         
