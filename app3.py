@@ -492,11 +492,11 @@ def app5():
         porcentajes = df_agrupado / df_agrupado.sum() * 100
         
         # Crear el gráfico de torta
-        fig1, ax = plt.subplots(figsize=(7, 5))
-        ax.pie(porcentajes, autopct='%1.0f%%')
+        fig1, ax = plt.subplots(figsize=(9, 3))
+        ax.pie(porcentajes, labels=porcentajes.index, autopct='%1.0f%%')
         
         # Crear una leyenda de colores y referencias
-        legend = ax.legend(loc='upper right', frameon=False, labels=porcentajes.index, bbox_to_anchor=(1.3, 1))
+        legend = ax.legend(loc='upper right', frameon=False, bbox_to_anchor=(1.3, 1))
         legend.set_title('Tipos de campo')
         for text, color in zip(legend.get_texts(), ax.patches):
             text.set_color(color.get_facecolor())
@@ -508,8 +508,7 @@ def app5():
             color.set_linewidth(0)
             color.set_height(10)
             color.set_width(10)
-        
-        # Mostrar el gráfico y la leyenda en Streamlit
+        # Mostrar el gráfico en Streamlit
         middle.pyplot(fig1)
         
         # Tabla dataframe entero
