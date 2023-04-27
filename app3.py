@@ -493,11 +493,6 @@ def app5():
         
         # Agregar el gráfico al contenedor de la derecha
         left.plotly_chart(fig, use_container_width=True)
-        fig.update_layout(
-            margin=dict(
-                t=100 # Cambie este valor para ajustar el margen superior
-                )
-            )
         
         #GRAFICO TORTA
         # Agrupar por tipo de campo y sumar la superficie
