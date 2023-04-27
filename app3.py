@@ -481,15 +481,11 @@ def app5():
         # Agregar la tabla al contenedor de la izquierda
         left.markdown('<table class="custom-table">{}</table>'.format(pd.DataFrame(data).to_html(index=False, classes="custom-table", header=False)), unsafe_allow_html=True)
         
-        # Agregar un espacio en blanco debajo de la tabla
-        
         # Agregar el dataframe al contenedor de la izquierda
         st.dataframe(dfp.style.format({"Superficie (has)":"{:.0f}", "Rinde":"{:,}", "Ingreso":"${:,}", "Costos directos":"${:,}", "Gastos comercialización":"${:,}", "Margen bruto":"${:,}"}))
         
         # Agrupar el dataframe por tipo de cultivo y sumar la superficie
         df_grouped = dfp.groupby('Cultivo')['Superficie (has)'].sum().reset_index()
-        
-        # Definir los colores para cada tipo de cultivo
         colors = px.colors.qualitative.Plotly
         
         # Crear el gráfico de barras
@@ -502,6 +498,18 @@ def app5():
                 t=100 # Cambie este valor para ajustar el margen superior
                 )
             )
+        
+        #GRAFICO TORTA
+        # Agrupar por tipo de campo y sumar la superficie
+        df_agrupado = dfp.groupby('Campos')['Superficie (has)'].sum()
+        
+        # Calcular los porcentajes de superficie para cada tipo de campo
+        porcentajes = df_agrupado / df_agrupado.sum() * 100
+        
+        # Graficar los porcentajes en un gráfico de torta
+        plt.pie(porcentajes, labels=porcentajes.index, autopct='%1.1f%%')
+        plt.title('Superficie por tipo de campo')
+        plt.show()
                 
     if dfp is not None and df1 is None:
         st.write ("Sin planteo productivo o falta cargar gastos de estructura")
