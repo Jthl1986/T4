@@ -493,7 +493,6 @@ def app5():
         
         # Crear el gráfico de torta con Plotly
         fig1 = px.pie(names=df_agrupado.index, values=df_agrupado.values, 
-                     title='Distribución de la superficie por tipo de campo',
                      labels={'names':'Tipo de campo', 'values':'Superficie (has)'})
         
         # Mostrar el gráfico en la aplicación con Streamlit
