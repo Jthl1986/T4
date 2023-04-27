@@ -476,7 +476,7 @@ def app5():
         st.markdown(csss, unsafe_allow_html=True)
         
         # Crear un container de dos columnas
-        left, right = st.beta_columns(3)
+        left, right = st.beta_columns(2)
         
         # Agregar la tabla al contenedor de la izquierda
         left.markdown('<table class="custom-table">{}</table>'.format(pd.DataFrame(data).to_html(index=False, classes="custom-table", header=False)), unsafe_allow_html=True)
