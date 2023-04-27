@@ -490,9 +490,10 @@ def app5():
         # Agrupar por tipo de campo y sumar la superficie
         df_agrupado = dfp.groupby('Campos')['Superficie (has)'].sum()
         porcentajes = df_agrupado / df_agrupado.sum() * 100
-        plt.pie(porcentajes, labels=porcentajes.index, autopct='%1.1f%%')
-        plt.title('Superficie por tipo de campo')
-        left.plt.show()
+        fig1, ax = plt.subplots(figsize=(8, 6))
+        ax.pie(porcentajes, labels=porcentajes.index, autopct='%1.1f%%')
+        ax.set_title('Distribución de la superficie por tipo de campo')
+        st.pyplot(fig1)
         
         # Tabla dataframe entero
         st.dataframe(dfp.style.format({"Superficie (has)":"{:.0f}", "Rinde":"{:,}", "Ingreso":"${:,}", "Costos directos":"${:,}", "Gastos comercialización":"${:,}", "Margen bruto":"${:,}"}))
