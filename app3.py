@@ -486,21 +486,17 @@ def app5():
         fig = px.bar(df_grouped, x='Cultivo', y='Superficie (has)', color='Cultivo', color_discrete_sequence=colors)
         left.plotly_chart(fig, use_container_width=True)
         
-        # Tabla dataframe entero
-        st.dataframe(dfp.style.format({"Superficie (has)":"{:.0f}", "Rinde":"{:,}", "Ingreso":"${:,}", "Costos directos":"${:,}", "Gastos comercialización":"${:,}", "Margen bruto":"${:,}"}))
-        
-        
         #GRAFICO TORTA
         # Agrupar por tipo de campo y sumar la superficie
         df_agrupado = dfp.groupby('Campos')['Superficie (has)'].sum()
-        
-        # Calcular los porcentajes de superficie para cada tipo de campo
         porcentajes = df_agrupado / df_agrupado.sum() * 100
-        
-        # Graficar los porcentajes en un gráfico de torta
         plt.pie(porcentajes, labels=porcentajes.index, autopct='%1.1f%%')
         plt.title('Superficie por tipo de campo')
-        plt.show()
+        left.plt.show()
+        
+        # Tabla dataframe entero
+        st.dataframe(dfp.style.format({"Superficie (has)":"{:.0f}", "Rinde":"{:,}", "Ingreso":"${:,}", "Costos directos":"${:,}", "Gastos comercialización":"${:,}", "Margen bruto":"${:,}"}))
+        
                 
     if dfp is not None and df1 is None:
         st.write ("Sin planteo productivo o falta cargar gastos de estructura")
