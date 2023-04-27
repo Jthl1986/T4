@@ -495,13 +495,16 @@ def app5():
         fig1, ax = plt.subplots(figsize=(9, 3))
         ax.pie(porcentajes, labels=porcentajes.index, autopct='%1.0f%%')
         
+        # Crear una leyenda de colores y referencias
+        legend = ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+        
         # Cambiar la tipografía, tamaño y color de las referencias
-        for label in ax.get_xticklabels() + ax.get_yticklabels():
-            label.set_fontsize(6)
+        for label in legend.get_texts():
+            label.set_fontsize(10)
             label.set_color('grey')
             label.set_family('serif')
         
-        # Mostrar el gráfico en Streamlit
+        # Mostrar el gráfico y la leyenda en Streamlit
         middle.pyplot(fig1)
         
         # Tabla dataframe entero
