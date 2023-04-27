@@ -496,7 +496,7 @@ def app5():
         ax.pie(porcentajes, autopct='%1.0f%%')
         
         # Crear una leyenda de colores y referencias
-        legend = ax.legend(loc='up left', bbox_to_anchor=(1, 0.5))
+        legend = ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
         
         # Cambiar la tipografía, tamaño y color de las referencias
         for label in legend.get_texts():
