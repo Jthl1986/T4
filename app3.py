@@ -495,7 +495,9 @@ def app5():
         fig1 = px.pie(names=df_agrupado.index, values=df_agrupado.values, 
                      title='Distribución de la superficie por tipo de campo',
                      labels={'names':'Tipo de campo', 'values':'Superficie (has)'})
-        middle.fig.show(fig1)
+        
+        # Mostrar el gráfico en la aplicación con Streamlit
+        st.plotly_chart(fig1)
         
         # Tabla dataframe entero
         st.dataframe(dfp.style.format({"Superficie (has)":"{:.0f}", "Rinde":"{:,}", "Ingreso":"${:,}", "Costos directos":"${:,}", "Gastos comercialización":"${:,}", "Margen bruto":"${:,}"}))
