@@ -496,13 +496,18 @@ def app5():
         ax.pie(porcentajes, autopct='%1.0f%%')
         
         # Crear una leyenda de colores y referencias
-        legend = ax.legend(loc='center left',labels=porcentajes.index, bbox_to_anchor=(1, 0.5))
-        
-        # Cambiar la tipografía, tamaño y color de las referencias
-        for label in legend.get_texts():
-            label.set_fontsize(14)
-            label.set_color('black')
-            label.set_family('serif')
+        legend = ax.legend(loc='upper right', frameon=False, bbox_to_anchor=(1.3, 1))
+        legend.set_title('Tipos de campo')
+        for text, color in zip(legend.get_texts(), ax.patches):
+            text.set_color(color.get_facecolor())
+            text.set_ha('left')
+            text.set_va('center')
+            text.set_fontsize(10)
+            text.set_family('serif')
+            color.set_edgecolor('none')
+            color.set_linewidth(0)
+            color.set_height(10)
+            color.set_width(10)
         
         # Mostrar el gráfico y la leyenda en Streamlit
         middle.pyplot(fig1)
