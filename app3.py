@@ -492,7 +492,7 @@ def app5():
         porcentajes = df_agrupado / df_agrupado.sum() * 100
         
         # Crear el gráfico de torta
-        fig1, ax = plt.subplots(figsize=(6, 4))
+        fig1, ax = plt.subplots(figsize=(7, 5))
         ax.pie(porcentajes, autopct='%1.0f%%')
         
         # Crear una leyenda de colores y referencias
