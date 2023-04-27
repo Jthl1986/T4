@@ -500,7 +500,7 @@ def app5():
         
         # Cambiar la tipografía, tamaño y color de las referencias
         for label in legend.get_texts():
-            label.set_fontsize(12)
+            label.set_fontsize(14)
             label.set_color('black')
             label.set_family('serif')
         
