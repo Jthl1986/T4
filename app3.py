@@ -495,7 +495,7 @@ def app5():
         
         # Cambiar la tipografía, tamaño y color de las referencias
         for label in ax.get_xticklabels() + ax.get_yticklabels():
-            label.set_fontsize(9)
+            label.set_fontsize(6)
             label.set_color('grey')
             label.set_family('serif')
         middle.pyplot(fig1)
