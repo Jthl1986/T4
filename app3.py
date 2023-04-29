@@ -474,7 +474,7 @@ def app5():
 
                 # Crear un DataFrame
         df = pd.DataFrame(data)
-        
+        left,right = st.beta_columns(2)
         # Crear una tabla con Plotly con estilo personalizado
         fig = go.Figure(data=[go.Table(
             header=dict(values=list(df.columns),
@@ -491,7 +491,7 @@ def app5():
         ])
         
         # Mostrar la tabla en la aplicación con Streamlit
-        st.plotly_chart(fig)
+        left.plotly_chart(fig)
         
         # Barras en tres columnas izquierda
         left, middle,right = st.beta_columns(3)
