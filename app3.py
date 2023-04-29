@@ -495,8 +495,8 @@ def app5():
         
         # Ajustar el margen inferior y superior del gráfico
         fig.update_layout(margin=dict(t=0, b=0))
-
-        left.plotly_chart(fig, use_container_width=True)
+        
+        left.plotly_chart(fig, use_container_width=True, height=int(fig.layout.height)*0.8)
         
         #GRAFICO TORTA
         # Agrupar por tipo de campo y sumar la superficie
@@ -508,19 +508,10 @@ def app5():
         
         fig1.update_layout(legend=dict(x=0.6, y=1.2, orientation="v", title="Propiedad de los campos"))
         
-        middle.plotly_chart(fig1)
+        middle.plotly_chart(fig1, use_container_width=True, height=int(fig1.layout.height)*0.8)
+
         
         # Tabla dataframe entero
-        st.markdown("""
-            <style>
-                /* Ocultar índice de DataFrame */
-                .dataframe tbody tr th:first-child,
-                .dataframe tbody tr td:first-child,
-                .dataframe thead th:first-child {
-                    display: none;
-                }
-            </style>
-        """, unsafe_allow_html=True)
         st.dataframe(dfp.style.format({"Superficie (has)":"{:.0f}", "Rinde":"{:,}", "Ingreso":"${:,}", "Costos directos":"${:,}", "Gastos comercialización":"${:,}", "Margen bruto":"${:,}"}))
 
                 
