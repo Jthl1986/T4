@@ -487,15 +487,15 @@ def app5():
         left.plotly_chart(fig, use_container_width=True)
         
         #GRAFICO TORTA
-         # Agrupar por tipo de campo y sumar la superficie
+        
+        # Agrupar por tipo de campo y sumar la superficie
         df_agrupado = dfp.groupby('Campos')['Superficie (has)'].sum().reset_index()
         
-        # Crear el gráfico de torta con seaborn
+        # Crear el gráfico de torta con matplotlib
         fig, ax = plt.subplots(figsize=(8, 8))
         sns.set_color_codes("pastel")
-        sns.pieplot(x="Superficie (has)", data=df_agrupado, labels=df_agrupado["Campos"], ax=ax)
+        ax.pie(x=df_agrupado['Superficie (has)'], labels=df_agrupado['Campos'])
         ax.set_title("Superficie de campos por tipo")
-        ax.set_ylabel("")
         ax.legend(loc="upper right", bbox_to_anchor=(1.3, 1))
         
         # Mostrar el gráfico en la aplicación con Streamlit
