@@ -488,7 +488,7 @@ def app5():
         left.plotly_chart(fig, use_container_width=True, padding=0)
 
         # Barras en tres columnas izquierda
-        left, middle,right = st.beta_columns(3)
+        left, middle, middle1, middle2, right = st.beta_columns(5)
         df_grouped = dfp.groupby('Cultivo')['Superficie (has)'].sum().reset_index()
         colors = px.colors.qualitative.Plotly
         fig = px.bar(df_grouped, x='Cultivo', y='Superficie (has)', color='Cultivo', color_discrete_sequence=colors)
