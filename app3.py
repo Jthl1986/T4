@@ -454,14 +454,6 @@ def app5():
         result = int(mbtotal)-int(arrend)-int(gas)
         # Crear una lista de diccionarios con los datos
         
-        # Define el estilo CSS
-        csss = """
-        <style>
-            .custom-table tbody tr:last-child td {
-                font-weight: bold;
-            }
-        """
-        
         data = [
             {'Concepto': 'Facturación campaña', 'Total': '${:,}'.format(round(ingtotal))},
             {'Concepto': 'Costos directos', 'Total': '${:,}'.format(round(costtotal))},
@@ -512,10 +504,9 @@ def app5():
         
         # Crear el gráfico de torta con Plotly
         fig1 = px.pie(names=df_agrupado.index, values=df_agrupado.values, 
-                     labels={'names':'Tipo de campo', 'values':'Superficie (has)'}) 
+                     labels={'names':'Tipo de campo', 'values':'Superficie (has)'},textposition='inside') 
         
         # Mostrar el gráfico en la aplicación con Streamlit
-        fig1.update_traces(textposition='inside')
         middle.plotly_chart(fig1)
         
         # Tabla dataframe entero
