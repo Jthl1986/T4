@@ -506,7 +506,7 @@ def app5():
         fig1 = px.pie(names=df_agrupado.index, values=df_agrupado.values, 
                      labels={'names':'Tipo de campo', 'values':'Superficie (has)'}) 
         
-        fig1.update_layout(legend=dict(x=0.5, y=1.1, orientation="v", title="Propiedad de los campos"))
+        fig1.update_layout(legend=dict(x=2, y=1.2, orientation="v", title="Propiedad de los campos"))
         
         middle.plotly_chart(fig1)
         
