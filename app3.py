@@ -488,7 +488,9 @@ def app5():
                                  size=14),
                        align='left',
                        height=30))
-        ])        
+        ])
+        # Ajustar el margen inferior y superior del gráfico
+        fig.update_layout(margin=dict(t=0, b=0))        
         # Mostrar la tabla en la aplicación con Streamlit
         left.plotly_chart(fig, use_container_width=True)
         
