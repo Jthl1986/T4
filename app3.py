@@ -511,7 +511,7 @@ def app5():
         middle.plotly_chart(fig1)
         
         # Tabla dataframe entero
-        st.write(
+        st.markdown(
             f"""
             <style>
                 .dataframe th:first-child,
