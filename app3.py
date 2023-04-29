@@ -492,7 +492,7 @@ def app5():
         # Ajustar el margen inferior y superior del gráfico
         fig.update_layout(margin=dict(t=0, b=0))        
         # Mostrar la tabla en la aplicación con Streamlit
-        left.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, use_container_width=True)
 
         # Barras en tres columnas izquierda
         left, middle,right = st.beta_columns(3)
@@ -501,7 +501,7 @@ def app5():
         fig = px.bar(df_grouped, x='Cultivo', y='Superficie (has)', color='Cultivo', color_discrete_sequence=colors)
         
         # Ajustar el margen inferior y superior del gráfico
-        fig.update_layout(margin=dict(t=0, b=-20))
+        fig.update_layout(margin=dict(t=0, b=0))
 
         left.plotly_chart(fig, use_container_width=True)
         
