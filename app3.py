@@ -488,7 +488,7 @@ def app5():
         left.plotly_chart(fig, use_container_width=True, padding=0)
 
         # Barras en tres columnas izquierda
-        left, middle,right = st.beta_columns(3)
+        left, middle, right = st.beta_columns(3)
         df_grouped = dfp.groupby('Cultivo')['Superficie (has)'].sum().reset_index()
         colors = px.colors.qualitative.Plotly
         fig = px.bar(df_grouped, x='Cultivo', y='Superficie (has)', color='Cultivo', color_discrete_sequence=colors)
@@ -496,7 +496,7 @@ def app5():
         # Ajustar el margen inferior y superior del gráfico
         fig.update_layout(margin=dict(t=0, b=0))
         
-        left.plotly_chart(fig, use_container_width=True, height=int(fig.layout.height)*0.5 if fig.layout.height else None)
+        left.plotly_chart(fig, use_container_width=True, height=400)
         
         #GRAFICO TORTA
         # Agrupar por tipo de campo y sumar la superficie
@@ -504,12 +504,15 @@ def app5():
         
         # Crear el gráfico de torta con Plotly
         fig1 = px.pie(names=df_agrupado.index, values=df_agrupado.values, 
-                     labels={'names':'Tipo de campo', 'values':'Superficie (has)'}) 
+                      labels={'names':'Tipo de campo', 'values':'Superficie (has)'})
         
-        fig1.update_layout(legend=dict(x=0.6, y=1.2, orientation="v", title="Propiedad de los campos"))
+        # Ajustar el tamaño de la torta
+        fig1.update_layout(width=400, height=400, autosize=False, 
+                           margin=dict(t=0, b=0), title='Propiedad de los campos', 
+                           legend=dict(x=0.5, y=-0.1, orientation="h"))
         
-        middle.plotly_chart(fig1, height=int(fig1.layout.height)*0.5 if fig1.layout.height else None)
-
+        middle.write(f'<div style="width: 33%; display: inline-block;">{fig1.to_html()}</div>', 
+                     unsafe_allow_html=True)
 
         
         # Tabla dataframe entero
