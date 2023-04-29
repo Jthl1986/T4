@@ -506,7 +506,7 @@ def app5():
         # Crear una tabla con Plotly
         fig = go.Figure(data=[go.Table(
             header=dict(values=list(df.columns),
-                        fill_color='white',
+                        fill_color='grey',
                         align='left'),
             cells=dict(values=[df.Concepto, df.Total],
                        fill_color='white',
