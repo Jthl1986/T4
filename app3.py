@@ -514,7 +514,8 @@ def app5():
                        fill_color='white',
                        font=dict(family='sans-serif',  # Cambiar la fuente a sans-serif
                                  size=14),
-                       align='left'))
+                       align='left',
+                       height=50))
         ])
         
         # Mostrar la tabla en la aplicación con Streamlit
