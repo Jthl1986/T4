@@ -511,6 +511,17 @@ def app5():
         middle.plotly_chart(fig1)
         
         # Tabla dataframe entero
+        st.write(
+            f"""
+            <style>
+                .dataframe th:first-child,
+                .dataframe td:first-child {{
+                    display: none;
+                }}
+            </style>
+            """
+        )
+        
         st.dataframe(dfp.style.format({"Superficie (has)":"{:.0f}", "Rinde":"{:,}", "Ingreso":"${:,}", "Costos directos":"${:,}", "Gastos comercialización":"${:,}", "Margen bruto":"${:,}"}))
 
                 
