@@ -496,7 +496,7 @@ def app5():
         # Ajustar el margen inferior y superior del gráfico
         fig.update_layout(margin=dict(t=0, b=0))
         
-        left.plotly_chart(fig, use_container_width=True, height=int(fig.layout.height)*0.8)
+        left.plotly_chart(fig, use_container_width=True, height=int(fig.layout.height)*0.8 if fig.layout.height else None)
         
         #GRAFICO TORTA
         # Agrupar por tipo de campo y sumar la superficie
@@ -508,7 +508,8 @@ def app5():
         
         fig1.update_layout(legend=dict(x=0.6, y=1.2, orientation="v", title="Propiedad de los campos"))
         
-        middle.plotly_chart(fig1, use_container_width=True, height=int(fig1.layout.height)*0.8)
+        middle.plotly_chart(fig1, height=int(fig1.layout.height)*0.8 if fig1.layout.height else None)
+
 
         
         # Tabla dataframe entero
