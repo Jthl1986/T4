@@ -501,18 +501,15 @@ def app5():
         st.dataframe(dfp.style.format({"Superficie (has)":"{:.0f}", "Rinde":"{:,}", "Ingreso":"${:,}", "Costos directos":"${:,}", "Gastos comercialización":"${:,}", "Margen bruto":"${:,}"}))
         
                 # Crear un DataFrame de ejemplo
-        data = {'Nombre': ['Juan', 'Pedro', 'Maria', 'Ana'], 
-                'Edad': [24, 28, 32, 27], 
-                'Ciudad': ['Lima', 'Cusco', 'Arequipa', 'Trujillo']}
         df = pd.DataFrame(data)
         
         # Crear una tabla con Plotly
         fig = go.Figure(data=[go.Table(
             header=dict(values=list(df.columns),
-                        fill_color='paleturquoise',
+                        fill_color='white',
                         align='left'),
-            cells=dict(values=[df.Nombre, df.Edad, df.Ciudad],
-                       fill_color='lavender',
+            cells=dict(values=[df.Concepto, df.Total],
+                       fill_color='white',
                        align='left'))
         ])
         
