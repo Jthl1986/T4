@@ -512,6 +512,8 @@ def app5():
                         align='left'),
             cells=dict(values=[df.Concepto, df.Total],
                        fill_color='white',
+                       font=dict(family='sans-serif',  # Cambiar la fuente a sans-serif
+                                 size=14),
                        align='left'))
         ])
         
