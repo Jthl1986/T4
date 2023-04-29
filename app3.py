@@ -515,7 +515,7 @@ def app5():
                      labels={'names':'Tipo de campo', 'values':'Superficie (has)'}) 
         
         # Mostrar el gráfico en la aplicación con Streamlit
-        fig1.update_traces(textposition='auto')
+        fig1.update_traces(textposition='inside')
         middle.plotly_chart(fig1)
         
         # Tabla dataframe entero
