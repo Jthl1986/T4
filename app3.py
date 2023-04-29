@@ -503,10 +503,12 @@ def app5():
                 # Crear un DataFrame de ejemplo
         df = pd.DataFrame(data)
         
-        # Crear una tabla con Plotly
+        # Crear una tabla con Plotly con estilo personalizado
         fig = go.Figure(data=[go.Table(
             header=dict(values=list(df.columns),
-                        fill_color='grey',
+                        fill_color='#f0f2f6',  # Cambiar el color a #f0f2f6
+                        font=dict(family='sans-serif',  # Cambiar la fuente a sans-serif
+                                  size=14),  # Cambiar el tamaño de la fuente a 14
                         align='left'),
             cells=dict(values=[df.Concepto, df.Total],
                        fill_color='white',
