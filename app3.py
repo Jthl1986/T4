@@ -487,19 +487,15 @@ def app5():
         left.plotly_chart(fig, use_container_width=True)
         
         #GRAFICO TORTA
-        
         # Agrupar por tipo de campo y sumar la superficie
-        df_agrupado = dfp.groupby('Campos')['Superficie (has)'].sum().reset_index()
+        df_agrupado = dfp.groupby('Campos')['Superficie (has)'].sum()
         
-        # Crear el gráfico de torta con matplotlib
-        fig, ax = plt.subplots(figsize=(8, 8))
-        sns.set_color_codes("pastel")
-        ax.pie(x=df_agrupado['Superficie (has)'], labels=df_agrupado['Campos'])
-        ax.set_title("Superficie de campos por tipo")
-        ax.legend(loc="upper right", bbox_to_anchor=(1.3, 1))
+        # Crear el gráfico de torta con Plotly
+        fig1 = px.pie(names=df_agrupado.index, values=df_agrupado.values, 
+                     labels={'names':'Tipo de campo', 'values':'Superficie (has)'}) 
         
         # Mostrar el gráfico en la aplicación con Streamlit
-        middle.pyplot(fig)
+        middle.plotly_chart(fig1)
         
         # Tabla dataframe entero
         st.dataframe(dfp.style.format({"Superficie (has)":"{:.0f}", "Rinde":"{:,}", "Ingreso":"${:,}", "Costos directos":"${:,}", "Gastos comercialización":"${:,}", "Margen bruto":"${:,}"}))
