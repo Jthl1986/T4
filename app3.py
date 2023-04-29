@@ -486,8 +486,7 @@ def app5():
                        fill_color='white',
                        font=dict(family='sans-serif',  # Cambiar la fuente a sans-serif
                                  size=14),
-                       align='left',
-                       height=30))
+                       align='left'))
         ])
         # Ajustar el margen inferior y superior del gráfico
         fig.update_layout(margin=dict(t=0, b=0))        
