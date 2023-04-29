@@ -511,16 +511,17 @@ def app5():
         middle.plotly_chart(fig1)
         
         # Tabla dataframe entero
-        st.markdown("""<style>
-                        .dataframe th:first-child {
-                            display: none;
-                        }
-                        .dataframe td:first-child {
-                            display: none;
-                        }
-                    </style>""", unsafe_allow_html=True)
-
-        st.dataframe(dfp.style.format({"Superficie (has)":"{:.0f}", "Rinde":"{:,}", "Ingreso":"${:,}", "Costos directos":"${:,}", "Gastos comercialización":"${:,}", "Margen bruto":"${:,}"}), hide_index=True)
+        st.markdown("""
+            <style>
+                /* Ocultar índice de DataFrame */
+                .dataframe tbody tr th:first-child,
+                .dataframe tbody tr td:first-child,
+                .dataframe thead th:first-child {
+                    display: none;
+                }
+            </style>
+        """, unsafe_allow_html=True)
+        st.dataframe(dfp.style.format({"Superficie (has)":"{:.0f}", "Rinde":"{:,}", "Ingreso":"${:,}", "Costos directos":"${:,}", "Gastos comercialización":"${:,}", "Margen bruto":"${:,}"}))
 
                 
     if dfp is not None and df1 is None:
