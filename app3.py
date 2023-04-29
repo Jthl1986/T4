@@ -508,14 +508,16 @@ def app5():
         
         st.markdown("""
         <style>
-            .piechart .g.pielayer text {
+            .g.pielayer text {
                 font-size: 12px !important;
                 transform: translate(0px, -30px) !important;
             }
         </style>
         """, unsafe_allow_html=True)
         
-        # Mostrar el gráfico en la aplicación con Streamlit
+        fig1 = px.pie(names=df_agrupado.index, values=df_agrupado.values, 
+                     labels={'names':'Tipo de campo', 'values':'Superficie (has)'}) 
+        
         middle.plotly_chart(fig1)
         
         # Tabla dataframe entero
