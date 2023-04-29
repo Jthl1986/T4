@@ -510,7 +510,7 @@ def app5():
         <style>
             .piechart .g.pielayer text {
                 font-size: 12px !important;
-                transform: translate(30px, -5px) !important;
+                transform: translate(0px, -5px) !important;
             }
         </style>
         """, unsafe_allow_html=True)
