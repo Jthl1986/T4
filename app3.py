@@ -487,7 +487,7 @@ def app5():
                        font=dict(family='sans-serif',  # Cambiar la fuente a sans-serif
                                  size=14),
                        align='left',
-                       height=20))
+                       height=30))
         ])        
         # Mostrar la tabla en la aplicación con Streamlit
         left.plotly_chart(fig, use_container_width=True)
@@ -497,6 +497,10 @@ def app5():
         df_grouped = dfp.groupby('Cultivo')['Superficie (has)'].sum().reset_index()
         colors = px.colors.qualitative.Plotly
         fig = px.bar(df_grouped, x='Cultivo', y='Superficie (has)', color='Cultivo', color_discrete_sequence=colors)
+        
+        # Ajustar el margen inferior y superior del gráfico
+        fig.update_layout(margin=dict(t=10, b=10))
+
         left.plotly_chart(fig, use_container_width=True)
         
         #GRAFICO TORTA
