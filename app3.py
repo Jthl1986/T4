@@ -472,9 +472,9 @@ def app5():
             {'Concepto': 'Generación operativa de fondos', 'Total': '${:,}'.format(result)}
         ]
 
-                # Crear un DataFrame
+        # Crear un DataFrame
+        left,right = st.beta_columns(2)               
         df = pd.DataFrame(data)
-        left,right = st.beta_columns(2)
         # Crear una tabla con Plotly con estilo personalizado
         fig = go.Figure(data=[go.Table(
             header=dict(values=list(df.columns),
@@ -488,8 +488,7 @@ def app5():
                                  size=14),
                        align='left',
                        height=30))
-        ])
-        
+        ])        
         # Mostrar la tabla en la aplicación con Streamlit
         left.plotly_chart(fig)
         
