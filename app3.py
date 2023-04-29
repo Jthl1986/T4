@@ -514,10 +514,7 @@ def app5():
             }
         </style>
         """, unsafe_allow_html=True)
-        
-        fig1 = px.pie(names=df_agrupado.index, values=df_agrupado.values, 
-                     labels={'names':'Tipo de campo', 'values':'Superficie (has)'}) 
-        
+                
         middle.plotly_chart(fig1)
         
         # Tabla dataframe entero
