@@ -490,7 +490,7 @@ def app5():
                        height=30))
         ])        
         # Mostrar la tabla en la aplicación con Streamlit
-        left.plotly_chart(fig)
+        left.plotly_chart(fig, use_container_width=True)
         
         # Barras en tres columnas izquierda
         left, middle,right = st.beta_columns(3)
