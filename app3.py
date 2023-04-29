@@ -490,6 +490,7 @@ def app5():
                        height=30))
         ])
         # Ajustar el margen inferior y superior del gráfico
+        fig.update_layout(height=len(df)*30+60)
         fig.update_layout(margin=dict(t=0, b=0))        
         # Mostrar la tabla en la aplicación con Streamlit
         st.plotly_chart(fig, use_container_width=True, padding=0)
