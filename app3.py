@@ -506,11 +506,10 @@ def app5():
                 'Ciudad': ['Lima', 'Cusco', 'Arequipa', 'Trujillo']}
         df = pd.DataFrame(data)
         
-        # Crear un mapa de calor con la tabla utilizando seaborn
-        fig, ax = plt.subplots(figsize=(8, 6))
-        sns.heatmap(df, cmap='YlGnBu', annot=True, fmt='g', ax=ax)
+        # Crear un gráfico categórico con el DataFrame utilizando seaborn
+        fig = sns.catplot(x='Nombre', y='Edad', data=df, kind='bar')
         
-        # Mostrar el mapa de calor en la aplicación con Streamlit
+        # Mostrar el gráfico en la aplicación con Streamlit
         st.pyplot(fig)
                 
     if dfp is not None and df1 is None:
