@@ -471,14 +471,28 @@ def app5():
             {'Concepto': 'Gastos estructura', 'Total': '${:,}'.format(gas)},
             {'Concepto': 'Generación operativa de fondos', 'Total': '${:,}'.format(result)}
         ]
+
+                # Crear un DataFrame
+        df = pd.DataFrame(data)
         
-        # Apply CSS styles to the table
-        st.markdown(csss, unsafe_allow_html=True)
+        # Crear una tabla con Plotly con estilo personalizado
+        fig = go.Figure(data=[go.Table(
+            header=dict(values=list(df.columns),
+                        fill_color='#f0f2f6',  # Cambiar el color a #f0f2f6
+                        font=dict(family='sans-serif',  # Cambiar la fuente a sans-serif
+                                  size=14),  # Cambiar el tamaño de la fuente a 14
+                        align='left'),
+            cells=dict(values=[df.Concepto, df.Total],
+                       fill_color='white',
+                       font=dict(family='sans-serif',  # Cambiar la fuente a sans-serif
+                                 size=14),
+                       align='left',
+                       height=30))
+        ])
         
-        #Tabla en dos secciones izquierda
-        left, right = st.beta_columns(2)        
-        left.markdown('<table class="custom-table">{}</table>'.format(pd.DataFrame(data).to_html(index=False, classes="custom-table", header=False)), unsafe_allow_html=True)
-                
+        # Mostrar la tabla en la aplicación con Streamlit
+        st.plotly_chart(fig)
+        
         # Barras en tres columnas izquierda
         left, middle,right = st.beta_columns(3)
         df_grouped = dfp.groupby('Cultivo')['Superficie (has)'].sum().reset_index()
@@ -499,27 +513,7 @@ def app5():
         
         # Tabla dataframe entero
         st.dataframe(dfp.style.format({"Superficie (has)":"{:.0f}", "Rinde":"{:,}", "Ingreso":"${:,}", "Costos directos":"${:,}", "Gastos comercialización":"${:,}", "Margen bruto":"${:,}"}))
-        
-                # Crear un DataFrame de ejemplo
-        df = pd.DataFrame(data)
-        
-        # Crear una tabla con Plotly con estilo personalizado
-        fig = go.Figure(data=[go.Table(
-            header=dict(values=list(df.columns),
-                        fill_color='#f0f2f6',  # Cambiar el color a #f0f2f6
-                        font=dict(family='sans-serif',  # Cambiar la fuente a sans-serif
-                                  size=14),  # Cambiar el tamaño de la fuente a 14
-                        align='left'),
-            cells=dict(values=[df.Concepto, df.Total],
-                       fill_color='white',
-                       font=dict(family='sans-serif',  # Cambiar la fuente a sans-serif
-                                 size=14),
-                       align='left',
-                       height=30))
-        ])
-        
-        # Mostrar la tabla en la aplicación con Streamlit
-        st.plotly_chart(fig)
+
                 
     if dfp is not None and df1 is None:
         st.write ("Sin planteo productivo o falta cargar gastos de estructura")
