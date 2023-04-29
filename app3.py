@@ -519,8 +519,8 @@ def app5():
                             display: none;
                         }
                     </style>""", unsafe_allow_html=True)
-        
-        st.dataframe(dfp.style.format({"Superficie (has)":"{:.0f}", "Rinde":"{:,}", "Ingreso":"${:,}", "Costos directos":"${:,}", "Gastos comercialización":"${:,}", "Margen bruto":"${:,}"}))
+
+        st.dataframe(dfp.style.format({"Superficie (has)":"{:.0f}", "Rinde":"{:,}", "Ingreso":"${:,}", "Costos directos":"${:,}", "Gastos comercialización":"${:,}", "Margen bruto":"${:,}"}), hide_index=True)
 
                 
     if dfp is not None and df1 is None:
