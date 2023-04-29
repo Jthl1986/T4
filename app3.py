@@ -486,12 +486,13 @@ def app5():
                        fill_color='white',
                        font=dict(family='sans-serif',  # Cambiar la fuente a sans-serif
                                  size=14),
-                       align='left'))
+                       align='left',
+                       height=30))
         ])
         # Ajustar el margen inferior y superior del gráfico
         fig.update_layout(margin=dict(t=0, b=0))        
         # Mostrar la tabla en la aplicación con Streamlit
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, use_container_width=True, padding=0)
 
         # Barras en tres columnas izquierda
         left, middle,right = st.beta_columns(3)
