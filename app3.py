@@ -485,7 +485,7 @@ def app5():
         fig.update_layout(height=len(df)*30+60)
         fig.update_layout(margin=dict(t=0, b=0))        
         # Mostrar la tabla en la aplicación con Streamlit
-        st.plotly_chart(fig, use_container_width=True, padding=0)
+        left.plotly_chart(fig, use_container_width=True, padding=0)
 
         # Barras en tres columnas izquierda
         left, middle,right = st.beta_columns(3)
