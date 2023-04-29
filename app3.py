@@ -493,7 +493,7 @@ def app5():
         fig.update_layout(margin=dict(t=0, b=0))        
         # Mostrar la tabla en la aplicación con Streamlit
         left.plotly_chart(fig, use_container_width=True)
-        
+        fig.update_layout(margin=dict(t=0, b=0))
         # Barras en tres columnas izquierda
         left, middle,right = st.beta_columns(3)
         df_grouped = dfp.groupby('Cultivo')['Superficie (has)'].sum().reset_index()
