@@ -500,6 +500,18 @@ def app5():
         # Tabla dataframe entero
         st.dataframe(dfp.style.format({"Superficie (has)":"{:.0f}", "Rinde":"{:,}", "Ingreso":"${:,}", "Costos directos":"${:,}", "Gastos comercialización":"${:,}", "Margen bruto":"${:,}"}))
         
+                # Crear un DataFrame de ejemplo
+        data = {'Nombre': ['Juan', 'Pedro', 'Maria', 'Ana'], 
+                'Edad': [24, 28, 32, 27], 
+                'Ciudad': ['Lima', 'Cusco', 'Arequipa', 'Trujillo']}
+        df = pd.DataFrame(data)
+        
+        # Crear un mapa de calor con la tabla utilizando seaborn
+        fig, ax = plt.subplots(figsize=(8, 6))
+        sns.heatmap(df, cmap='YlGnBu', annot=True, fmt='g', ax=ax)
+        
+        # Mostrar el mapa de calor en la aplicación con Streamlit
+        st.pyplot(fig)
                 
     if dfp is not None and df1 is None:
         st.write ("Sin planteo productivo o falta cargar gastos de estructura")
