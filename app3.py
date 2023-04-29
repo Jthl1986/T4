@@ -506,11 +506,18 @@ def app5():
                 'Ciudad': ['Lima', 'Cusco', 'Arequipa', 'Trujillo']}
         df = pd.DataFrame(data)
         
-        # Crear un gráfico categórico con el DataFrame utilizando seaborn
-        fig = sns.catplot(x='Nombre', y='Edad', data=df, kind='bar')
+        # Crear una tabla con Plotly
+        fig = go.Figure(data=[go.Table(
+            header=dict(values=list(df.columns),
+                        fill_color='paleturquoise',
+                        align='left'),
+            cells=dict(values=[df.Nombre, df.Edad, df.Ciudad],
+                       fill_color='lavender',
+                       align='left'))
+        ])
         
-        # Mostrar el gráfico en la aplicación con Streamlit
-        st.pyplot(fig)
+        # Mostrar la tabla en la aplicación con Streamlit
+        st.plotly_chart(fig)
                 
     if dfp is not None and df1 is None:
         st.write ("Sin planteo productivo o falta cargar gastos de estructura")
