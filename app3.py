@@ -503,7 +503,6 @@ def app5():
                 # Crear un DataFrame de ejemplo
         df = pd.DataFrame(data)
         
-        # Crear una tabla con Plotly con estilo personalizado
         fig = go.Figure(data=[go.Table(
             header=dict(values=list(df.columns),
                         fill_color='#f0f2f6',  # Cambiar el color a #f0f2f6
@@ -513,7 +512,8 @@ def app5():
             cells=dict(values=[df.Concepto, df.Total],
                        fill_color='white',
                        font=dict(family='sans-serif',  # Cambiar la fuente a sans-serif
-                                 size=14),
+                                 size=14,
+                                 bold=[True if x == 'generación operativa de fondos' else False for x in df.Concepto]),  # Agregar negrita a la fila especificada
                        align='left',
                        height=30))
         ])
