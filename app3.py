@@ -544,7 +544,7 @@ def app5():
                         'type': 'data',
                         'array': refs,
                         'thickness': 2,
-                        'width': 4,
+                        'width': 2,
                         'visible': True,
                         'color': 'black',
                     },
@@ -559,7 +559,7 @@ def app5():
                     mode='lines',
                     line={
                         'color': 'black',
-                        'width': 1
+                        'width': 0.5
                     },
                 )
             )
