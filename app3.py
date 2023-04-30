@@ -529,6 +529,7 @@ def app5():
                         'line': {'color': 'black', 'width': 1}
                     },
                     error_x={'type': 'data', 'array': [4000, 6000], 'visible': True},
+                    width=0.5,
                 )
             )
         
