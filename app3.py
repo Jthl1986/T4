@@ -544,7 +544,7 @@ def app5():
                         'type': 'data',
                         'array': refs,
                         'thickness': 2,
-                        'width': 2,
+                        'width': 4,
                         'visible': True,
                         'color': 'black',
                     },
