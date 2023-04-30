@@ -537,14 +537,31 @@ def app5():
         # Agrupar los datos por cultivo y calcular el rinde promedio
         df = dfp.groupby('Cultivo', as_index=False)['Rinde'].mean()
         
-        # Crear el heatbar chart con plotly
-        fig = px.bar(df, x='Cultivo', y='Rinde', color='Rinde',
-                     color_continuous_scale='reds', title='Rinde promedio por cultivo')
+        # Definir los límites y puntos de referencia del bullet chart
+        lim = [0, df['Rinde'].max() * 1.1]
+        ref = [df['Rinde'].quantile(0.25), df['Rinde'].quantile(0.5), df['Rinde'].quantile(0.75)]
         
-        fig.update_layout(xaxis_title='Cultivo', yaxis_title='Rinde promedio')
+        # Crear el bullet chart con plotly
+        fig = go.Figure()
         
-        st.plotly_chart(fig, use_container_width=True)
-
+        for i, row in df.iterrows():
+            fig.add_trace(go.Indicator(
+                mode = "number+gauge+marker",
+                value = row['Rinde'],
+                title = {"text": row['Cultivo']},
+                domain = {'x': [0, 1], 'y': [i/len(df), (i+1)/len(df)]},
+                gauge = {'axis': {'range': lim},
+                         'bar': {'color': 'darkred'},
+                         'steps': [{'range': [0, ref[0]], 'color': 'lightgray'},
+                                   {'range': [ref[0], ref[1]], 'color': 'gray'},
+                                   {'range': [ref[1], ref[2]], 'color': 'lightgray'}],
+                         'threshold': {'line': {'color': 'black', 'width': 3},
+                                       'thickness': 0.75, 'value': row['Rinde']}}
+            ))
+        
+        fig.update_layout(height=300*len(df), title='Rinde promedio por cultivo', 
+                          xaxis_title='Rinde', showlegend=False)
+        st.plotly_chart(gauge_chart, use_container_width=True)
 
 
     if dfp is not None and df1 is None:
