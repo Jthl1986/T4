@@ -510,8 +510,8 @@ def app5():
 
 
         # Crear un dataframe de ejemplo
-        data = {'Cultivo': ['Maíz', 'Soja', 'Trigo'],
-                'Rinde': [7000, 3500, 5000]}
+        data = {'Cultivo': ['Maíz', 'Soja', 'Trigo','girasol'],
+                'Rinde': [7000, 3500, 5000, 5999]}
         df = pd.DataFrame(data)
         
         # Crear un bullet chart para el rinde por cultivo
