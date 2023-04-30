@@ -533,6 +533,17 @@ def app5():
             rinde_promedio = df_cultivo['Rinde'].mean()
             gauge_chart = create_gauge_chart(cultivo, rinde_promedio)
             right.plotly_chart(gauge_chart, use_container_width=True)
+            
+        # Agrupar los datos por cultivo y calcular el rinde promedio
+        df = dfp.groupby('Cultivo', as_index=False)['Rinde'].mean()
+        
+        # Crear el heatbar chart con plotly
+        fig = px.bar(df, x='Cultivo', y='Rinde', color='Rinde',
+                     color_continuous_scale='reds', title='Rinde promedio por cultivo')
+        
+        fig.update_layout(xaxis_title='Cultivo', yaxis_title='Rinde promedio')
+        
+        st.plotly_chart(fig, use_container_width=True)
 
 
 
