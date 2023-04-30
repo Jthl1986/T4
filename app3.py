@@ -509,6 +509,7 @@ def app5():
         st.dataframe(dfp.style.format({"Superficie (has)":"{:.0f}", "Rinde":"{:,}", "Ingreso":"${:,}", "Costos directos":"${:,}", "Gastos comercialización":"${:,}", "Margen bruto":"${:,}"}))
 
 
+
         # Create example dataframe
         data = {
             'Cultivo': ['Maíz', 'Soja', 'Trigo'],
@@ -516,9 +517,21 @@ def app5():
         }
         df = pd.DataFrame(data)
         
+        # Define reference values for each crop
+        maiz_refs = [5000, 6000, 7000]
+        soja_refs = [2500, 3000, 3500]
+        trigo_refs = [4000, 4500, 5000]
+        
         # Create chart traces for each crop
         fig = go.Figure()
         for i, row in df.iterrows():
+            if row['Cultivo'] == 'Maíz':
+                refs = maiz_refs
+            elif row['Cultivo'] == 'Soja':
+                refs = soja_refs
+            else:
+                refs = trigo_refs
+            
             fig.add_trace(
                 go.Bar(
                     y=[row['Cultivo']],
@@ -530,7 +543,7 @@ def app5():
                     },
                     error_x={
                         'type': 'data',
-                        'array': [4000, 6000, 8000],
+                        'array': refs,
                         'thickness': 2,
                         'width': 4,
                         'visible': True,
@@ -549,10 +562,10 @@ def app5():
             margin={'t': 10, 'b': 10, 'l': 10, 'r': 10},
             height=200,
         )
-
-
+        
         # Show chart in Streamlit app
-        right.plotly_chart(fig, use_container_width=True)
+        right.plotly_chart(fig)
+
 
             
 
