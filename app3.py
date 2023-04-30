@@ -512,7 +512,7 @@ def app5():
         # Create example dataframe
         data = {
             'Cultivo': ['Maíz', 'Soja', 'Trigo'],
-            'Rinde': [5, 3, 7],
+            'Rinde': [8, 3, 7],
         }
         df = pd.DataFrame(data)
         
@@ -537,7 +537,7 @@ def app5():
                     x=[row['Rinde']],
                     orientation='h',
                     marker={
-                        'color': 'green' if row['Rinde'] >= 6000 else 'red',
+                        'color': 'green' if row['Rinde'] >= 7 and row['Cultivo'] == 'Maíz' else 'red',
                         'line': {'color': 'black', 'width': 1}
                     },
                     error_x={
