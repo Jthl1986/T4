@@ -541,7 +541,7 @@ def app5():
         )
 
         # Show chart in Streamlit app
-        right.plotly_chart(fig)
+        right.plotly_chart(fig, use_container_width=True)
 
             
 
