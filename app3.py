@@ -512,14 +512,14 @@ def app5():
         # Create example dataframe
         data = {
             'Cultivo': ['Maíz', 'Soja', 'Trigo'],
-            'Rinde': [7000, 3500, 5000],
+            'Rinde': [5, 3, 7],
         }
         df = pd.DataFrame(data)
         
         # Define reference values for each crop
-        maiz_refs = [5000, 6000, 7000]
-        soja_refs = [2500, 3000, 3500]
-        trigo_refs = [4000, 4500, 5000]
+        maiz_refs = [6.5, 7, 9]
+        soja_refs = [1.8, 2, 4]
+        trigo_refs = [2.5, 4, 5.2]
         
         # Create chart traces for each crop
         fig = go.Figure()
