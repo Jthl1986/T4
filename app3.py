@@ -559,7 +559,7 @@ def app5():
                     mode='lines',
                     line={
                         'color': 'black',
-                        'width': 2
+                        'width': 1
                     },
                 )
             )
@@ -570,7 +570,7 @@ def app5():
         # Set chart layout
         fig.update_layout(
             yaxis={'title': '', 'showgrid': False},
-            xaxis={'title': 'Rinde', 'range': [0, 10000], 'showgrid': False},
+            xaxis={'title': 'Rinde', 'range': [0, 10], 'showgrid': True},
             margin={'t': 10, 'b': 10, 'l': 10, 'r': 10},
             height=200,
         )
