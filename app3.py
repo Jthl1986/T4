@@ -509,32 +509,60 @@ def app5():
         st.dataframe(dfp.style.format({"Superficie (has)":"{:.0f}", "Rinde":"{:,}", "Ingreso":"${:,}", "Costos directos":"${:,}", "Gastos comercialización":"${:,}", "Margen bruto":"${:,}"}))
 
 
-        # Crear un dataframe de ejemplo
-        data = {'Cultivo': ['Maíz', 'Soja', 'Trigo','girasol'],
-                'Rinde': [7000, 3500, 5000, 5999]}
+        # Create example dataframe
+        data = {
+            'Cultivo': ['Maíz', 'Soja', 'Trigo'],
+            'Rinde': [7000, 3500, 5000],
+        }
         df = pd.DataFrame(data)
         
-        # Crear un bullet chart para el rinde por cultivo
-        fig = go.Figure()
-        for i in range(len(df)):
-            fig.add_trace(go.Indicator(
-                mode = "number+gauge+delta",
-                value = df['Rinde'][i],
-                delta = {'reference': 6000},
-                gauge = {'axis': {'range': [None, 10000]},
-                         'bar': {'color': 'gray'},
-                         'steps': [{'range': [0, 4000], 'color': 'red'},
-                                   {'range': [4000, 6000], 'color': 'orange'},
-                                   {'range': [6000, 8000], 'color': 'yellow'},
-                                   {'range': [8000, 10000], 'color': 'green'}],
-                         'threshold' : {'line': {'color': "black", 'width': 4}, 'value': 9000}},
-                domain = {'x': [0, 1], 'y': [i/len(df), (i+1)/len(df)]},
-                title = {'text': df['Cultivo'][i]},
+        # Define chart layout
+        layout = {
+            'xaxis': {'showticklabels': False, 'range': [0, 10000]},
+            'yaxis': {'showticklabels': False},
+            'shapes': [{
+                'type': 'line',
+                'x0': 6000, 'x1': 6000,
+                'y0': -0.5, 'y1': len(df) - 0.5,
+                'line': {'color': 'black', 'width': 3},
+            }],
+        }
+        
+        # Create chart traces
+        traces = []
+        for i, row in df.iterrows():
+            traces.append(
+                go.Scatter(
+                    x=[row['Rinde']],
+                    y=[i],
+                    mode='markers',
+                    marker={
+                        'color': 'gray',
+                        'symbol': 'line-ns-open',
+                        'size': 20,
+                        'line': {'width': 2},
+                    },
+                    name=row['Cultivo'],
+                )
+            )
+            traces.append(
+                go.Bar(
+                    x=[row['Rinde']],
+                    y=[i],
+                    orientation='h',
+                    marker={
+                        'color': 'green' if row['Rinde'] >= 6000 else 'red',
+                        'line': {'width': 2},
+                    },
                 )
             )
         
-        # Mostrar el bullet chart en la aplicación de streamlit
-        right.plotly_chart(fig, use_container_width=True)
+        # Create chart figure
+        fig = go.Figure(data=traces, layout=layout)
+        
+        # Show chart in Streamlit app
+        right.plotly_chart(fig)
+
             
 
     if dfp is not None and df1 is None:
