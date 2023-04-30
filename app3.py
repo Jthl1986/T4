@@ -532,7 +532,7 @@ def app5():
                     width=0.5,
                 )
             )
-        
+        fig.update_traces(showlegend=False)
         # Set chart layout
         fig.update_layout(
             yaxis={'title': '', 'showgrid': False},
