@@ -517,48 +517,38 @@ def app5():
         df = pd.DataFrame(data)
         
         # Define chart layout
-        layout = {
-            'xaxis': {'showticklabels': False, 'range': [0, 10000]},
-            'yaxis': {'showticklabels': False},
-            'shapes': [{
-                'type': 'line',
-                'x0': 6000, 'x1': 6000,
-                'y0': -0.5, 'y1': len(df) - 0.5,
-                'line': {'color': 'black', 'width': 3},
-            }],
-        }
+        fig = make_subplots(rows=1, cols=len(df), shared_yaxes=True, horizontal_spacing=0.02)
         
-        # Create chart traces
-        traces = []
+        # Create chart traces for each crop
         for i, row in df.iterrows():
-            traces.append(
-                go.Scatter(
-                    x=[row['Rinde']],
-                    y=[i],
-                    mode='markers',
-                    marker={
-                        'color': 'gray',
-                        'symbol': 'line-ns-open',
-                        'size': 20,
-                        'line': {'width': 2},
+            fig.add_trace(
+                go.Indicator(
+                    mode='number+gauge+delta',
+                    gauge={
+                        'shape': 'bullet',
+                        'axis': {'range': [0, 10000]},
+                        'bar': {'color': 'green' if row['Rinde'] >= 6000 else 'red'},
+                        'steps': [
+                            {'range': [0, 4000], 'color': 'red'},
+                            {'range': [4000, 6000], 'color': 'yellow'},
+                            {'range': [6000, 10000], 'color': 'green'}
+                        ],
                     },
-                    name=row['Cultivo'],
-                )
-            )
-            traces.append(
-                go.Bar(
-                    x=[row['Rinde']],
-                    y=[i],
-                    orientation='h',
-                    marker={
-                        'color': 'green' if row['Rinde'] >= 6000 else 'red',
-                        'line': {'width': 2},
-                    },
-                )
+                    delta={'reference': 6000},
+                    value=row['Rinde'],
+                    title={'text': row['Cultivo']},
+                ),
+                row=1, col=i+1,
             )
         
-        # Create chart figure
-        fig = go.Figure(data=traces, layout=layout)
+        # Update chart layout
+        fig.update_layout(
+            height=200,
+            margin={'t': 10, 'b': 10, 'l': 10, 'r': 10},
+            paper_bgcolor='rgba(0,0,0,0)',
+            plot_bgcolor='rgba(0,0,0,0)',
+        )
+        
         
         # Show chart in Streamlit app
         right.plotly_chart(fig)
