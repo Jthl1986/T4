@@ -509,7 +509,6 @@ def app5():
         st.dataframe(dfp.style.format({"Superficie (has)":"{:.0f}", "Rinde":"{:,}", "Ingreso":"${:,}", "Costos directos":"${:,}", "Gastos comercialización":"${:,}", "Margen bruto":"${:,}"}))
 
 
-
         # Create example dataframe
         data = {
             'Cultivo': ['Maíz', 'Soja', 'Trigo'],
@@ -548,6 +547,19 @@ def app5():
                         'width': 4,
                         'visible': True,
                         'color': 'black',
+                    },
+                )
+            )
+        
+            # Add black reference line
+            fig.add_trace(
+                go.Scatter(
+                    x=[row['Rinde']],
+                    y=[row['Cultivo']],
+                    mode='lines',
+                    line={
+                        'color': 'black',
+                        'width': 2
                     },
                 )
             )
