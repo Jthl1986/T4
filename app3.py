@@ -534,7 +534,7 @@ def app5():
             )
         
         # Mostrar el bullet chart en la aplicación de streamlit
-        right.plotly_chart(fig)
+        right.plotly_chart(fig, use_container_width=True)
             
 
     if dfp is not None and df1 is None:
