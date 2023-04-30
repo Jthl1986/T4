@@ -508,7 +508,34 @@ def app5():
         # Tabla dataframe entero
         st.dataframe(dfp.style.format({"Superficie (has)":"{:.0f}", "Rinde":"{:,}", "Ingreso":"${:,}", "Costos directos":"${:,}", "Gastos comercialización":"${:,}", "Margen bruto":"${:,}"}))
 
-                
+
+        # Función para generar el gauge chart
+        def create_gauge_chart(cultivo, rinde):
+            fig = go.Figure(go.Indicator(
+                domain = {'x': [0, 1], 'y': [0, 1]},
+                value = rinde,
+                mode = "gauge+number",
+                gauge = {'axis': {'range': [None, max(dfp['Rinde'])]},
+                         'bar': {'color': "darkblue"},
+                         'steps' : [
+                             {'range': [0, 25], 'color': "red"},
+                             {'range': [25, 50], 'color': "orange"},
+                             {'range': [50, 75], 'color': "yellow"},
+                             {'range': [75, 100], 'color': "lightgreen"}],
+                         'threshold' : {'line': {'color': "red", 'width': 4}, 'thickness': 0.75, 'value': 90}},
+                         ))
+            fig.update_layout(title = {'text': cultivo})
+            return fig
+        
+        # Iterar sobre cada cultivo y generar el gauge chart correspondiente
+        for cultivo in dfp['Cultivo'].unique():
+            df_cultivo = dfp[dfp['Cultivo'] == cultivo]
+            rinde_promedio = df_cultivo['Rinde'].mean()
+            gauge_chart = create_gauge_chart(cultivo, rinde_promedio)
+            st.plotly_chart(gauge_chart)
+
+
+
     if dfp is not None and df1 is None:
         st.write ("Sin planteo productivo o falta cargar gastos de estructura")
         
