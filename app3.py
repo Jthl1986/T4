@@ -509,60 +509,33 @@ def app5():
         st.dataframe(dfp.style.format({"Superficie (has)":"{:.0f}", "Rinde":"{:,}", "Ingreso":"${:,}", "Costos directos":"${:,}", "Gastos comercialización":"${:,}", "Margen bruto":"${:,}"}))
 
 
-        # Función para generar el gauge chart
-        def create_gauge_chart(cultivo, rinde):
-            fig = go.Figure(go.Indicator(
-                domain = {'x': [0, 1], 'y': [0, 1]},
-                value = rinde,
-                mode = "gauge+number",
-                gauge = {'axis': {'range': [None, max(dfp['Rinde'])]},
-                         'bar': {'color': "darkblue"},
-                         'steps' : [
-                             {'range': [0, 25], 'color': "red"},
-                             {'range': [25, 50], 'color': "orange"},
-                             {'range': [50, 75], 'color': "yellow"},
-                             {'range': [75, 100], 'color': "lightgreen"}],
-                         'threshold' : {'line': {'color': "red", 'width': 4}, 'thickness': 0.75, 'value': 90}},
-                         ))
-            fig.update_layout(title = {'text': cultivo})
-            return fig
+        # Crear un dataframe de ejemplo
+        data = {'Cultivo': ['Maíz', 'Soja', 'Trigo'],
+                'Rinde': [7000, 3500, 5000]}
+        df = pd.DataFrame(data)
         
-        # Iterar sobre cada cultivo y generar el gauge chart correspondiente
-        for cultivo in dfp['Cultivo'].unique():
-            df_cultivo = dfp[dfp['Cultivo'] == cultivo]
-            rinde_promedio = df_cultivo['Rinde'].mean()
-            gauge_chart = create_gauge_chart(cultivo, rinde_promedio)
-            right.plotly_chart(gauge_chart, use_container_width=True)
-            
-        # Agrupar los datos por cultivo y calcular el rinde promedio
-        df = dfp.groupby('Cultivo', as_index=False)['Rinde'].mean()
-        
-        # Definir los límites y puntos de referencia del bullet chart
-        lim = [0, df['Rinde'].max() * 1.1]
-        ref = [df['Rinde'].quantile(0.25), df['Rinde'].quantile(0.5), df['Rinde'].quantile(0.75)]
-        
-        # Crear el bullet chart con plotly
+        # Crear un bullet chart para el rinde por cultivo
         fig = go.Figure()
-        
-        for i, row in df.iterrows():
+        for i in range(len(df)):
             fig.add_trace(go.Indicator(
-                mode = "number+gauge+marker",
-                value = row['Rinde'],
-                title = {"text": row['Cultivo']},
+                mode = "number+gauge+delta",
+                value = df['Rinde'][i],
+                delta = {'reference': 6000},
+                gauge = {'axis': {'range': [None, 10000]},
+                         'bar': {'color': 'gray'},
+                         'steps': [{'range': [0, 4000], 'color': 'red'},
+                                   {'range': [4000, 6000], 'color': 'orange'},
+                                   {'range': [6000, 8000], 'color': 'yellow'},
+                                   {'range': [8000, 10000], 'color': 'green'}],
+                         'threshold' : {'line': {'color': "black", 'width': 4}, 'value': 9000}},
                 domain = {'x': [0, 1], 'y': [i/len(df), (i+1)/len(df)]},
-                gauge = {'axis': {'range': lim},
-                         'bar': {'color': 'darkred'},
-                         'steps': [{'range': [0, ref[0]], 'color': 'lightgray'},
-                                   {'range': [ref[0], ref[1]], 'color': 'gray'},
-                                   {'range': [ref[1], ref[2]], 'color': 'lightgray'}],
-                         'threshold': {'line': {'color': 'black', 'width': 3},
-                                       'thickness': 0.75, 'value': row['Rinde']}}
-            ))
+                title = {'text': df['Cultivo'][i]},
+                )
+            )
         
-        fig.update_layout(height=300*len(df), title='Rinde promedio por cultivo', 
-                          xaxis_title='Rinde', showlegend=False)
-        st.plotly_chart(gauge_chart, use_container_width=True)
-
+        # Mostrar el bullet chart en la aplicación de streamlit
+        st.plotly_chart(fig)
+            
 
     if dfp is not None and df1 is None:
         st.write ("Sin planteo productivo o falta cargar gastos de estructura")
