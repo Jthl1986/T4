@@ -532,7 +532,7 @@ def app5():
             df_cultivo = dfp[dfp['Cultivo'] == cultivo]
             rinde_promedio = df_cultivo['Rinde'].mean()
             gauge_chart = create_gauge_chart(cultivo, rinde_promedio)
-            st.plotly_chart(gauge_chart)
+            right.plotly_chart(gauge_chart, use_container_width=True)
 
 
 
