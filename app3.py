@@ -528,11 +528,20 @@ def app5():
                         'color': 'green' if row['Rinde'] >= 6000 else 'red',
                         'line': {'color': 'black', 'width': 1}
                     },
-                    error_x={'type': 'data', 'array': [4000, 6000], 'visible': True},
-                    width=0.5,
+                    error_x={
+                        'type': 'data',
+                        'array': [4000, 6000, 8000],
+                        'thickness': 2,
+                        'width': 4,
+                        'visible': True,
+                        'color': 'black',
+                    },
                 )
             )
+        
+        # Remove legend labels
         fig.update_traces(showlegend=False)
+        
         # Set chart layout
         fig.update_layout(
             yaxis={'title': '', 'showgrid': False},
@@ -540,6 +549,7 @@ def app5():
             margin={'t': 10, 'b': 10, 'l': 10, 'r': 10},
             height=200,
         )
+
 
         # Show chart in Streamlit app
         right.plotly_chart(fig, use_container_width=True)
