@@ -516,40 +516,30 @@ def app5():
         }
         df = pd.DataFrame(data)
         
-        # Define chart layout
-        fig = make_subplots(rows=1, cols=len(df), shared_yaxes=True, horizontal_spacing=0.02)
-        
         # Create chart traces for each crop
+        fig = go.Figure()
         for i, row in df.iterrows():
             fig.add_trace(
-                go.Indicator(
-                    mode='number+gauge+delta',
-                    gauge={
-                        'shape': 'bullet',
-                        'axis': {'range': [0, 10000]},
-                        'bar': {'color': 'green' if row['Rinde'] >= 6000 else 'red'},
-                        'steps': [
-                            {'range': [0, 4000], 'color': 'red'},
-                            {'range': [4000, 6000], 'color': 'yellow'},
-                            {'range': [6000, 10000], 'color': 'green'}
-                        ],
+                go.Bar(
+                    y=[row['Cultivo']],
+                    x=[row['Rinde']],
+                    orientation='h',
+                    marker={
+                        'color': 'green' if row['Rinde'] >= 6000 else 'red',
+                        'line': {'color': 'black', 'width': 1}
                     },
-                    delta={'reference': 6000},
-                    value=row['Rinde'],
-                    title={'text': row['Cultivo']},
-                ),
-                row=1, col=i+1,
+                    error_x={'type': 'data', 'array': [4000, 6000], 'visible': True},
+                )
             )
         
-        # Update chart layout
+        # Set chart layout
         fig.update_layout(
-            height=200,
+            yaxis={'title': '', 'showgrid': False},
+            xaxis={'title': 'Rinde', 'range': [0, 10000], 'showgrid': False},
             margin={'t': 10, 'b': 10, 'l': 10, 'r': 10},
-            paper_bgcolor='rgba(0,0,0,0)',
-            plot_bgcolor='rgba(0,0,0,0)',
+            height=200,
         )
-        
-        
+
         # Show chart in Streamlit app
         right.plotly_chart(fig)
 
